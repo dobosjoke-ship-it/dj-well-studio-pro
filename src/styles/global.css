@@ -1,0 +1,568 @@
+:root {
+  --bg:#071018;
+  --panel:#101a22;
+  --panel2:#0c151d;
+  --line:#263a4a;
+  --blue:#128cff;
+  --cyan:#36c8ff;
+  --green:#39d56b;
+  --yellow:#ffd23b;
+  --red:#ef3f5b;
+  --text:#f3f8ff;
+  --muted:#8ea1b2;
+  --shadow:0 18px 42px rgba(0,0,0,.38);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#071018,#050a0f);color:var(--text);font-family:Segoe UI,Arial,sans-serif}
+button,input,select{font-family:inherit}
+button{border:1px solid rgba(72,151,220,.38);background:linear-gradient(180deg,#182633,#101923);color:#fff;border-radius:8px;padding:8px 11px;font-weight:700;cursor:pointer}
+button:hover{border-color:var(--cyan);filter:brightness(1.1)}
+button.danger{background:linear-gradient(180deg,#7b2630,#46151c);border-color:#a94454}
+input,select{background:#0b141c;border:1px solid #263a4a;color:#f3f8ff;border-radius:7px;padding:7px;min-width:0;width:100%}
+input:focus,select:focus{outline:1px solid var(--blue)}
+h2{font-size:14px;text-transform:uppercase;margin:0;color:#fff;letter-spacing:.4px}
+
+.appShell{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:180px 1fr;
+  grid-template-rows:56px 92px 1fr;
+  grid-template-areas:
+    "top top"
+    "nav kpi"
+    "nav main";
+  gap:10px;
+  padding:0 10px 10px;
+}
+
+.topbar{grid-area:top;margin:0 -10px;display:grid;grid-template-columns:300px 1fr auto;gap:16px;align-items:center;padding:0 18px;background:#0b1219;border-bottom:1px solid #1e3140}
+.brand b{font-size:22px}.brand span{color:var(--blue)}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.projectStrip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.projectStrip label{color:var(--muted);font-size:11px}.projectStrip input{display:block;margin-top:4px;width:100%;background:transparent;border:0;border-bottom:1px solid #284052;border-radius:0;padding:2px 0;font-weight:700}
+.saveBtns{display:flex;align-items:center;gap:8px}.saveBtns button:first-child{background:linear-gradient(180deg,#30bd5f,#167a36);border-color:#42e078;text-transform:uppercase}
+
+.navRail{grid-area:nav;background:linear-gradient(180deg,#0e1821,#0a1118);border:1px solid #1f3445;border-radius:10px;overflow:hidden;padding:8px;display:flex;flex-direction:column;gap:5px}
+.navRail button{display:flex;align-items:center;gap:12px;background:transparent;border:0;justify-content:flex-start;padding:12px;border-radius:8px;color:#e8f2ff}
+.navRail button span{font-size:19px;width:22px;text-align:center}.navRail button.active{background:linear-gradient(90deg,#114f9d,#0a2f60);box-shadow:inset 3px 0 0 var(--cyan)}
+
+.kpiGrid{grid-area:kpi;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.kpiGrid div{background:linear-gradient(180deg,#101a22,#0c151d);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:var(--shadow);border-left:2px solid var(--blue)}
+.kpiGrid span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase}.kpiGrid b{display:block;font-size:22px;margin:8px 0 4px}.kpiGrid small{color:#d7e7f5}
+
+.workspace{
+  grid-area:main;
+  min-height:0;
+  display:grid;
+  grid-template-columns:280px minmax(390px,1.05fr) minmax(470px,1.15fr) 310px;
+  grid-template-rows:minmax(190px,.26fr) minmax(390px,1fr) minmax(190px,.38fr) minmax(220px,.35fr);
+  gap:10px;
+  grid-template-areas:
+    "params well schedule live"
+    "capacity well schedule live"
+    "timeline timeline timeline live"
+    "breakdown breakdown breakdown breakdown";
+}
+
+.panel{background:linear-gradient(180deg,#101a22,#0b141c);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;min-height:0}
+.panelHead{min-height:44px;background:linear-gradient(180deg,#132332,#0e1923);border-bottom:1px solid #263a4a;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;gap:10px;flex-wrap:wrap}
+.panelHead b{color:var(--cyan)}
+
+.wellPanel{grid-area:well;display:grid;grid-template-rows:auto 1fr}
+.wellBox{height:100%;position:relative;background:radial-gradient(circle at 50% 14%,rgba(44,200,255,.13),transparent 28%),linear-gradient(90deg,rgba(2,8,14,.96),rgba(5,18,28,.90),rgba(2,8,14,.96))}
+.wellBox:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(44,200,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(44,200,255,.025) 1px,transparent 1px);background-size:32px 32px;opacity:.45}
+.wellSvg{width:100%;height:100%;display:block;position:relative;z-index:1}
+.flowDown{animation:down 1.1s linear infinite}.flowUp{animation:up 1.1s linear infinite}.jet{animation:jet .8s linear infinite}.bit{filter:drop-shadow(0 0 10px rgba(255,190,80,.25))}
+@keyframes down{to{stroke-dashoffset:-36}}@keyframes up{to{stroke-dashoffset:36}}@keyframes jet{50%{opacity:.35}}
+
+.schedulePanel{grid-area:schedule}.fluidHead{align-items:flex-end}.fluidHead label{display:grid;gap:3px;color:var(--muted);font-size:11px;min-width:98px}.fluidHead label input{height:32px}.fluidHead small{font-size:10px}
+.tableWrap{overflow:auto;height:calc(100% - 52px);padding:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #203342;padding:8px;text-align:left}th{background:#132331;color:#beddf5;text-transform:uppercase;font-size:11px;position:sticky;top:0}td input{padding:5px}td input[type=color]{height:28px;padding:2px}
+
+.livePanel{grid-area:live}.run,.good{color:var(--green);background:rgba(57,213,107,.13);padding:5px 10px;border-radius:999px}
+.statusList{padding:10px 14px}.statusList p,.chem p{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #1f3343;margin:0;padding:11px 0}.statusList span,.chem span{color:var(--muted)}.statusList b,.chem b{color:#4fc3ff}
+.assistantBox{margin:10px 14px;padding:14px;border:1px solid #1b8adb;border-radius:10px;background:#0b1722}.assistantBox h3{margin:0 0 10px}.assistantBox p{margin:7px 0}.ok{color:var(--green)}.warn{color:var(--yellow)}.note{color:#d7e7f5}
+
+.timelinePanel{grid-area:timeline}
+.timeline{position:relative;padding:22px 18px 8px 96px;min-height:142px}.timelineRow{display:grid;grid-template-columns:100px 1fr;align-items:center;margin:9px 0}.timelineRow span{margin-left:-84px;font-size:12px}.timelineRow div{height:18px;background:#101923;border:1px solid #263a4a;position:relative;border-radius:6px;overflow:hidden}.timelineRow i{position:absolute;top:0;bottom:0;border-radius:5px}.timeline em{position:absolute;top:7px;bottom:8px;width:2px;background:#fff;color:#111;font-style:normal}.timeline em::before{content:attr(style);display:none}.timeline em{color:#111}.timeline em{padding-top:0}.timeline em{font-size:0}.timeline em::after{content:''}
+.playbar{display:grid;grid-template-columns:auto 90px 1fr auto;gap:10px;padding:0 18px 14px}.playbar input{accent-color:var(--blue)}
+
+.solidsPanel,.wellEditPanel,.bhaPanel,.hydraulicsPanel{grid-column:1 / -1}
+.inputGrid{padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.field span{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}
+.selectGrid{padding:0 12px 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cards{padding:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.cards>div{background:#0b141c;border:1px solid #263a4a;border-radius:10px;padding:12px}.cards span{display:block;color:var(--muted);font-size:11px}.cards b{display:block;color:var(--cyan);font-size:20px;margin-top:6px}
+.sectionCard{border:1px solid #263a4a;border-radius:10px;padding:10px;background:#0b141c}.sectionCard.openhole{border-color:#b77945}.sectionCard input,.sectionCard select{margin-bottom:7px}
+.mobileNav{display:none}
+
+.mobileHide{display:none}
+
+@media(min-width:901px){
+  .mobileHide{display:none}
+  .appShell:has(.navRail button:nth-child(1).active) .wellPanel,
+  .appShell:has(.navRail button:nth-child(1).active) .schedulePanel,
+  .appShell:has(.navRail button:nth-child(1).active) .livePanel,
+  .appShell:has(.navRail button:nth-child(1).active) .timelinePanel{display:grid}
+  .appShell:has(.navRail button:nth-child(2).active) .wellPanel,
+  .appShell:has(.navRail button:nth-child(2).active) .wellEditPanel,
+  .appShell:has(.navRail button:nth-child(2).active) .bhaPanel{display:grid}
+  .appShell:has(.navRail button:nth-child(3).active) .schedulePanel,
+  .appShell:has(.navRail button:nth-child(3).active) .timelinePanel{display:grid}
+  .appShell:has(.navRail button:nth-child(4).active) .wellPanel,
+  .appShell:has(.navRail button:nth-child(4).active) .schedulePanel,
+  .appShell:has(.navRail button:nth-child(4).active) .livePanel,
+  .appShell:has(.navRail button:nth-child(4).active) .timelinePanel{display:grid}
+  .appShell:has(.navRail button:nth-child(5).active) .solidsPanel{display:block}
+  .appShell:has(.navRail button:nth-child(6).active) .hydraulicsPanel{display:block}
+}
+
+@media(max-width:1350px){
+  .appShell{grid-template-columns:88px 1fr;grid-template-rows:66px auto 1fr}
+  .navRail button{justify-content:center;flex-direction:column;gap:4px;font-size:11px}.navRail button span{font-size:21px}
+  .projectStrip{grid-template-columns:repeat(2,1fr)}
+  .kpiGrid{grid-template-columns:repeat(3,1fr)}
+  .workspace{grid-template-columns:320px 1fr 360px;grid-template-rows:auto auto 520px auto auto auto;grid-template-areas:"params params live" "capacity capacity live" "well well live" "schedule schedule live" "timeline timeline timeline" "breakdown breakdown breakdown"}
+}
+
+@media(max-width:900px){
+  body{padding-bottom:74px}
+  .appShell{display:block;padding:0 8px 84px}
+  .topbar{margin:0 -8px 8px;grid-template-columns:1fr auto;padding:8px 10px;min-height:60px}
+  .brand small,.projectStrip{display:none}
+  .navRail{display:none}
+  .kpiGrid{grid-template-columns:repeat(2,1fr);margin-bottom:8px}
+  .kpiGrid div{padding:12px}.kpiGrid b{font-size:19px}
+  .workspace{display:block}
+  .panel{margin-bottom:10px}
+  .mobileHide{display:none!important}
+  .wellPanel{height:72vh;min-height:520px;display:grid}
+  .tableWrap{height:auto;max-height:62vh}
+  .fluidTable,.fluidTable thead,.fluidTable tbody,.fluidTable tr,.fluidTable th,.fluidTable td{display:block}
+  .fluidTable thead{display:none}.fluidTable tr{border:1px solid #263a4a;border-radius:10px;margin-bottom:10px;padding:8px;background:#0b141c}.fluidTable td{border:0;display:grid;grid-template-columns:100px 1fr;gap:8px;padding:6px}
+  .fluidTable td:nth-child(1)::before{content:"#"}
+  .fluidTable td:nth-child(2)::before{content:"Fluid"}
+  .fluidTable td:nth-child(3)::before{content:"Color"}
+  .fluidTable td:nth-child(4)::before{content:"Volume"}
+  .fluidTable td:nth-child(5)::before{content:"Rate"}
+  .fluidTable td:nth-child(6)::before{content:"Start offset"}
+  .fluidTable td:nth-child(7)::before{content:"Clock start"}
+  .fluidTable td:nth-child(8)::before{content:"End"}
+  .fluidTable td:nth-child(9)::before{content:"Duration"}
+  .inputGrid{grid-template-columns:repeat(2,1fr)}
+  .selectGrid{grid-template-columns:1fr}
+  .playbar{grid-template-columns:auto 80px 1fr}
+  .playbar button:last-child{display:none}
+  .mobileNav{display:grid;position:fixed;left:0;right:0;bottom:0;height:70px;background:#081018;border-top:1px solid #263a4a;grid-template-columns:repeat(6,1fr);z-index:50}
+  .mobileNav button{border:0;border-radius:0;background:transparent;color:#d7e7f5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .mobileNav button.active{color:var(--cyan);background:#0d2030}.mobileNav span{font-size:21px}.mobileNav small{font-size:10px}
+}
+
+@media(max-width:520px){
+  .brand b{font-size:16px}
+  .saveBtns button{padding:7px}
+  .kpiGrid{grid-template-columns:1fr 1fr}
+  .kpiGrid div:nth-child(n+5){display:none}
+  .wellPanel{height:66vh;min-height:460px}
+  .panelHead{height:auto;min-height:44px;flex-wrap:wrap;padding:8px}
+  .fluidHead label{width:100%}
+}
+
+.paramsPanel{grid-area:params}
+.paramGrid{
+  padding:12px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+.paramGrid .field{
+  background:#0b141c;
+  border:1px solid #203342;
+  border-radius:10px;
+  padding:9px;
+}
+.paramGrid .field span{
+  color:#b9d7ec;
+  font-size:12px;
+  font-weight:700;
+}
+.paramGrid input{
+  font-size:18px;
+  font-weight:800;
+  color:#ffffff;
+  background:#081018;
+  border-color:#2f5168;
+}
+.panelHead h2::before{
+  content:"";
+  display:inline-block;
+  width:7px;
+  height:18px;
+  background:var(--blue);
+  border-radius:4px;
+  margin-right:8px;
+  vertical-align:-4px;
+}
+.fluidHead{
+  gap:8px;
+}
+.fluidHead h2{
+  min-width:140px;
+}
+.fluidHead label{
+  background:#0b141c;
+  border:1px solid #203342;
+  border-radius:9px;
+  padding:6px 8px;
+}
+.kpiGrid div{
+  padding:12px 14px;
+}
+.kpiGrid b{
+  font-size:20px;
+}
+.statusList p{
+  padding:9px 0;
+}
+
+@media(max-width:900px){
+  .paramsPanel{display:block}
+  .paramGrid{grid-template-columns:repeat(2,1fr)}
+  .paramsPanel.mobileHide{display:none!important}
+}
+@media(max-width:520px){
+  .paramGrid{grid-template-columns:1fr}
+}
+
+
+.capacityPanel{grid-area:capacity}
+.capacityList{padding:10px 12px}
+.capacityList p{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid #1f3343;
+  margin:0;
+  padding:7px 0;
+}
+.capacityList span{
+  color:var(--muted);
+  font-size:12px;
+}
+.capacityList b{
+  color:#fff;
+  font-size:13px;
+}
+.capacityList p:nth-last-child(-n+2) b{
+  color:var(--cyan);
+  font-weight:900;
+}
+
+@media(max-width:900px){
+  .capacityPanel{display:block}
+  .capacityPanel.mobileHide{display:none!important}
+}
+
+
+.breakdownPanel{grid-area:breakdown}
+.breakdownWrap{
+  overflow:auto;
+  max-height:310px;
+  padding:10px;
+}
+.breakdownTable{
+  min-width:1120px;
+  font-size:12px;
+}
+.breakdownTable th{
+  white-space:nowrap;
+}
+.breakdownTable td{
+  white-space:nowrap;
+}
+.breakdownTable td:nth-child(11),
+.breakdownTable td:nth-child(12){
+  color:var(--cyan);
+  font-weight:800;
+}
+
+@media(max-width:900px){
+  .breakdownPanel{display:block}
+  .breakdownPanel.mobileHide{display:none!important}
+}
+
+
+.capacityList p.formula{
+  background:rgba(18,140,255,.10);
+  border-top:1px solid rgba(54,200,255,.55);
+}
+.capacityList p.formula b{
+  color:var(--cyan);
+  font-size:15px;
+}
+.capacityList p.formulaText{
+  background:rgba(255,210,59,.06);
+}
+.capacityList p.formulaText b{
+  color:var(--yellow);
+  font-size:11px;
+  text-align:right;
+}
+
+
+/* v4.7 compact readability */
+.topbar{min-height:56px}
+.brand b{font-size:18px}
+.brand small{font-size:10px}
+.panelHead{min-height:36px;padding:6px 10px}
+.panelHead h2{font-size:12px}
+.kpiGrid div{min-height:76px;padding:10px 12px}
+.kpiGrid span{font-size:10px}
+.kpiGrid b{font-size:18px}
+.kpiGrid small{font-size:11px}
+.paramGrid{gap:6px;padding:8px}
+.paramGrid .field{padding:6px}
+.paramGrid input{font-size:15px}
+.capacityList{padding:7px 9px}
+.capacityList p{padding:5px 0}
+.capacityList span,.statusList span{font-size:11px}
+.capacityList b,.statusList b{font-size:12px}
+.statusList p{padding:7px 0}
+.tableWrap{padding:6px}
+th,td{padding:5px 6px;font-size:12px}
+.fluidHead label{padding:4px 6px;min-width:86px}
+.fluidHead label input{height:28px}
+.breakdownWrap{max-height:210px}
+
+@media(max-width:1500px){
+  .workspace{
+    grid-template-columns:280px minmax(450px,1fr) 360px;
+    grid-template-rows:auto auto 470px auto auto;
+    grid-template-areas:
+      "params capacity live"
+      "well well live"
+      "schedule schedule live"
+      "timeline timeline timeline"
+      "breakdown breakdown breakdown";
+  }
+  .wellPanel{min-height:470px}
+}
+
+@media(max-width:1150px){
+  .appShell{grid-template-columns:72px 1fr}
+  .workspace{display:block}
+  .panel{margin-bottom:6px}
+  .wellPanel{height:560px}
+  .livePanel,.timelinePanel,.breakdownPanel{display:block}
+}
+
+@media(max-width:900px){
+  .breakdownPanel{display:none!important}
+  .appShell:has(.mobileNav button:nth-child(6).active) .breakdownPanel{display:block!important}
+  .kpiGrid{grid-template-columns:repeat(2,1fr)}
+  .kpiGrid div{min-height:68px}
+}
+
+
+.hint{
+  color:var(--yellow);
+  font-size:11px;
+  font-weight:700;
+}
+.capacityList p.formulaText b{
+  white-space:normal;
+}
+
+
+.capacityList p.geomWarn{
+  background:rgba(255,155,53,.12);
+  border:1px solid rgba(255,155,53,.35);
+  border-radius:8px;
+  padding:8px;
+  margin-bottom:6px;
+}
+.capacityList p.geomWarn b{
+  color:var(--yellow);
+  font-size:11px;
+  line-height:1.25;
+}
+
+
+.inlineWarn{
+  margin:4px 0 8px;
+  color:var(--yellow);
+  font-size:11px;
+  font-weight:800;
+  line-height:1.25;
+  background:rgba(255,210,59,.08);
+  border:1px solid rgba(255,210,59,.25);
+  border-radius:7px;
+  padding:6px;
+}
+
+
+/* v6.0 core geometry badge */
+.panelHead b{
+  max-width:48%;
+  text-align:right;
+}
+
+
+/* v6.1 Industrial Dashboard Skin */
+:root{
+  --mud:#b77928;
+  --mud2:#e0a533;
+  --mudDark:#5a3512;
+  --steel:#dce6ee;
+}
+
+body{
+  background:
+    radial-gradient(circle at 18% 10%, rgba(183,121,40,.16), transparent 26%),
+    radial-gradient(circle at 82% 0%, rgba(18,140,255,.16), transparent 28%),
+    linear-gradient(180deg,#050b10,#071018 42%,#03070b);
+}
+
+.topbar{
+  background:
+    linear-gradient(90deg,rgba(8,16,24,.98),rgba(11,24,36,.96)),
+    linear-gradient(180deg,rgba(183,121,40,.08),transparent);
+  border-bottom:1px solid rgba(224,165,51,.22);
+}
+
+.brand b{letter-spacing:.3px}
+.brand span{
+  color:var(--mud2);
+  text-shadow:0 0 18px rgba(224,165,51,.45);
+}
+
+.navRail{
+  background:
+    linear-gradient(180deg,rgba(8,17,25,.98),rgba(4,10,16,.98)),
+    radial-gradient(circle at 50% 6%,rgba(224,165,51,.18),transparent 34%);
+  border-color:rgba(224,165,51,.18);
+}
+
+.sidebarLogo{
+  text-align:center;
+  padding:8px 6px 12px;
+  margin-bottom:8px;
+  border-bottom:1px solid rgba(224,165,51,.20);
+}
+
+.sidebarLogo img{
+  width:100%;
+  max-width:150px;
+  display:block;
+  margin:0 auto 4px;
+  filter:drop-shadow(0 10px 22px rgba(0,0,0,.55));
+  border-radius:14px;
+}
+
+.sidebarLogo b{
+  display:block;
+  font-size:12px;
+  letter-spacing:.8px;
+  color:#ffffff;
+}
+
+.sidebarLogo small{
+  display:block;
+  color:var(--mud2);
+  font-weight:800;
+  letter-spacing:1px;
+  font-size:10px;
+}
+
+.navRail button.active{
+  background:linear-gradient(90deg,rgba(183,121,40,.40),rgba(10,72,136,.45));
+  box-shadow:inset 3px 0 0 var(--mud2), 0 0 18px rgba(183,121,40,.12);
+}
+
+.kpiGrid div{
+  background:
+    linear-gradient(180deg,rgba(18,33,47,.96),rgba(7,15,23,.96)),
+    radial-gradient(circle at 15% 20%,rgba(224,165,51,.14),transparent 34%);
+  border-color:rgba(92,145,188,.35);
+  border-left-color:var(--mud2);
+}
+
+.kpiGrid div:nth-child(1),
+.kpiGrid div:nth-child(5){
+  border-left-color:var(--blue);
+}
+
+.kpiGrid b{
+  color:#ffffff;
+  text-shadow:0 0 14px rgba(54,200,255,.25);
+}
+
+.panel{
+  background:
+    linear-gradient(180deg,rgba(14,27,39,.96),rgba(6,14,22,.97)),
+    radial-gradient(circle at 100% 0%,rgba(183,121,40,.08),transparent 35%);
+  border-color:rgba(61,111,148,.45);
+}
+
+.panelHead{
+  background:
+    linear-gradient(90deg,rgba(18,39,58,.96),rgba(9,20,31,.96)),
+    linear-gradient(180deg,rgba(224,165,51,.10),transparent);
+  border-bottom-color:rgba(224,165,51,.18);
+}
+
+.panelHead h2::before{
+  background:linear-gradient(180deg,var(--mud2),var(--blue));
+  box-shadow:0 0 12px rgba(224,165,51,.45);
+}
+
+.panelHead b{color:var(--mud2)}
+
+.capacityList p.formula,
+.capacityList p.total{
+  background:rgba(183,121,40,.13);
+  border-top:1px solid rgba(224,165,51,.45);
+  border-bottom:1px solid rgba(224,165,51,.28);
+}
+
+.capacityList p.formula b,
+.capacityList p.total b{color:var(--mud2)}
+
+.capacityList p.formulaText b{color:var(--mud2)}
+
+.breakdownTable td:nth-child(9),
+.breakdownTable td:nth-child(12){
+  color:var(--mud2);
+  font-weight:900;
+}
+
+.good,.run{
+  background:linear-gradient(90deg,rgba(40,150,70,.25),rgba(31,93,47,.30));
+  border:1px solid rgba(73,222,112,.26);
+}
+
+.assistantBox{
+  border-color:rgba(224,165,51,.35);
+  background:
+    linear-gradient(180deg,rgba(14,25,34,.94),rgba(8,15,22,.94)),
+    radial-gradient(circle at 90% 10%,rgba(224,165,51,.16),transparent 38%);
+}
+
+.assistantBox h3{color:var(--mud2)}
+
+button{border-color:rgba(224,165,51,.36)}
+button:hover{border-color:var(--mud2)}
+
+.saveBtns button:first-child{
+  background:linear-gradient(180deg,#d99c31,#815116);
+  border-color:#f0bc57;
+}
+
+.wellBox{
+  background:
+    radial-gradient(circle at 50% 14%,rgba(224,165,51,.10),transparent 26%),
+    linear-gradient(90deg,rgba(2,8,14,.96),rgba(5,18,28,.90),rgba(2,8,14,.96));
+}
+
+@media(max-width:1350px){
+  .sidebarLogo img{max-width:62px}
+  .sidebarLogo b,.sidebarLogo small{display:none}
+}
