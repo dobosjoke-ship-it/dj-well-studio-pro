@@ -1,3 +1,4 @@
+import React from 'react';
 import { ProjectState } from '../models/types';
 import { CapacityResult } from '../engine/capacity';
 import { effectiveHoleDiameter } from '../engine/geometry';
@@ -37,7 +38,7 @@ export function WellView({ project, capacity, flow }: Props) {
   const onBottom = isToolOnBottom(project);
 
   const fluidSvg = flow.map(item => {
-    const parts: JSX.Element[] = [];
+    const parts: React.ReactNode[] = [];
     const a0 = item.backVolume;
     const a1 = item.frontVolume;
 
