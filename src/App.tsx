@@ -76,6 +76,8 @@ function normalize(raw: Partial<ProjectState>): ProjectState {
     ...raw,
     meta: { ...defaultProject.meta, ...(raw.meta ?? {}) },
     strokeLiters: raw.strokeLiters ?? defaultProject.strokeLiters,
+pv: toNumber(raw.pv, defaultProject.pv),
+yp: toNumber(raw.yp, defaultProject.yp),
     sections: (raw.sections ?? defaultProject.sections).map(s => ({
       ...s,
       type: normalizeSectionType(s.type),
