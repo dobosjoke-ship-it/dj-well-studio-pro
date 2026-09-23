@@ -13,7 +13,10 @@ export const defaultProject: ProjectState = {
   tool: 1525,
   pump: 2200,
   strokeLiters: 2.70,
-  mudSg: 1.45,
+   mudSg: 1.45,
+  pv: 25,
+  yp: 20,
+
   pressure: 85,
   annLoss: 5,
   startTime: '11:00',

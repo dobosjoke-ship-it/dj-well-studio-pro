@@ -260,7 +260,9 @@ export function App() {
             <InputRow label="Pump Rate (L/min)" value={project.pump} onChange={v => setProject({ ...project, pump: v })}/>
             <InputRow label="Pump Output (L/stroke)" value={project.strokeLiters} step={0.01} onChange={v => setProject({ ...project, strokeLiters: v })}/>
             <InputRow label="Mud Weight / SG" value={project.mudSg} step={0.01} onChange={v => setProject({ ...project, mudSg: v, solids: { ...project.solids, mudSg: v } })}/>
-            <InputRow label="Ann. Pressure Loss %" value={project.annLoss} step={0.1} onChange={v => setProject({ ...project, annLoss: v })}/>
+            <InputRow label="Plastic Viscosity / PV (cP)" value={project.pv} step={1} onChange={v => setProject({ ...project, pv: v })}/>
+<InputRow label="Yield Point / YP (lb/100 ft²)" value={project.yp} step={1} onChange={v => setProject({ ...project, yp: v })}/>
+          
           </div>
         </section>
 
@@ -511,6 +513,7 @@ export function App() {
           <div className="panelHead"><h2>Hydraulics</h2></div>
           <div className="cards">
             <div><span>ECD</span><b>{fmt(hydraulics.ecdNow,3)} SG</b></div>
+            <div><span>Annular Pressure Loss</span><b>{fmt(hydraulics.annularPressureLossBar,2)} bar</b></div>
             <div><span>Pipe Velocity</span><b>{fmt(hydraulics.pipeVel,2)} m/s</b></div>
             <div><span>Annular Velocity</span><b>{fmt(hydraulics.annVel,2)} m/s</b></div>
             <div><span>Bottoms Up</span><b>{fmt(hydraulics.bottoms,1)} min</b></div>

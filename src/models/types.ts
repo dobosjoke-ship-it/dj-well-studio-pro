@@ -64,6 +64,8 @@ export interface ProjectState {
   pump: number;
   strokeLiters: number;
   mudSg: number;
+  pv: number;
+  yp: number;
   pressure: number;
   annLoss: number;
   startTime: string;
