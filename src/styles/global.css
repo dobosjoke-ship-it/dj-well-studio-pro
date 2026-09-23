@@ -566,7 +566,11 @@ button:hover{border-color:var(--mud2)}
   .sidebarLogo img{max-width:62px}
   .sidebarLogo b,.sidebarLogo small{display:none}
 }
+/* Laptop layout fix */
+@media (min-width: 901px) and (max-width: 1600px) {
+  .workspace { display: block; }
+  .panel { margin-bottom: 10px; }
+  .paramsPanel { display: block; overflow: visible; height: auto; }
+  .paramGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); height: auto; }
+}
 
-/* Fix params panel clipping */
-.paramsPanel { overflow: visible; min-height: max-content; }
-.paramGrid { height: auto; min-height: max-content; }
