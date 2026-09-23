@@ -566,3 +566,7 @@ button:hover{border-color:var(--mud2)}
   .sidebarLogo img{max-width:62px}
   .sidebarLogo b,.sidebarLogo small{display:none}
 }
+
+/* Fix params panel clipping */
+.paramsPanel { overflow: visible; min-height: max-content; }
+.paramGrid { height: auto; min-height: max-content; }
